@@ -258,10 +258,14 @@ Game.prototype.calculatePoints = function(diceIndex) {
     } else if (pairs == 3) {
         points += 1500;
     } else if (triple1) {
-        points += triple1 * (triple1 == 1 ? 1000 : 100) * (result[triple1 - 1] - 2);
+        var triple1Points = triple1 * (triple1 == 1 ? 1000 : 100);
+        for (var i = 0; i < result[triple1 - 1] - 3; i++) {
+            triple1Points *= 2;
+        }
+        points += triple1Points;
 
         if (triple2) {
-            points += triple2 * (triple2 == 1 ? 1000 : 100) * (result[triple2 - 1] - 2);
+            points += triple2 * (triple2 == 1 ? 1000 : 100);
         }
     }
 
