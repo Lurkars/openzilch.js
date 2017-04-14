@@ -28,20 +28,26 @@ function Interface() {
     });
 
     self.pointsButton.addEventListener("click", function() {
-        self.fireEvent("takePoints");
+        if (self.playing) {
+            self.fireEvent("takePoints");
+        }
     });
 
 
     self.dicesButton.addEventListener("click", function() {
-        self.fireEvent("addPoints");
-        self.fireEvent("roleDices");
+        if (self.playing) {
+            self.fireEvent("addPoints");
+            self.fireEvent("roleDices");
+        }
     });
 
     for (var diceIndex = 0; diceIndex < 6; diceIndex++) {
         var diceContainer = self.dices[diceIndex];
         diceContainer.diceIndex = diceIndex;
         diceContainer.addEventListener("click", function() {
-            self.fireEvent("toggleDice", this.diceIndex);
+            if (self.playing) {
+                self.fireEvent("toggleDice", this.diceIndex);
+            }
         });
     }
 
@@ -138,9 +144,11 @@ Interface.prototype.setPoints = function(points) {
 
 Interface.prototype.setPlaying = function(playing) {
     if (playing) {
+        this.playing = true;
         this.playerScoreContainer.classList.add('active');
         this.cpuScoreContainer.classList.remove('active');
     } else {
+        this.playing = false;
         this.playerScoreContainer.classList.remove('active');
         this.cpuScoreContainer.classList.add('active');
     }
