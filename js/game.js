@@ -6,7 +6,7 @@ function Game(Interface) {
     self.Interface.on("restart", self.restart.bind(this));
     self.Interface.on("takePoints", self.takePoints.bind(this));
     self.Interface.on("addPoints", self.addPoints.bind(this));
-    self.Interface.on("roleDices", self.roleDices.bind(this));
+    self.Interface.on("rollDices", self.rollDices.bind(this));
     self.Interface.on("toggleDice", self.toggleDice.bind(this));
 
 
@@ -42,6 +42,7 @@ Game.prototype.setup = function() {
     self.history = [];
 
     self.cpuStarts = self.random(2);
+    self.cpuSpeed = 1000;
 
     self.playing = !self.cpuStarts;
 
@@ -55,11 +56,13 @@ Game.prototype.setup = function() {
 
     if (self.cpuStarts) {
         self.Interface.showMessage("CPU starts!", 1000, function() {
-            self.roleDices();
+            setTimeout(function() {
+                self.rollDices();
+            }, self.cpuSpeed);
         });
     } else {
         self.Interface.showMessage("Player starts!", 0, function() {
-            self.Interface.disableRoleDices(false);
+            self.Interface.disableRollDices(false);
         });
     }
 
@@ -70,7 +73,7 @@ Game.prototype.random = function(int) {
     return Math.floor((Math.random() * int));
 };
 
-Game.prototype.roleDices = function(all) {
+Game.prototype.rollDices = function(all) {
     var self = this;
     self.Interface.clearMessage();
 
@@ -95,7 +98,7 @@ Game.prototype.roleDices = function(all) {
     }
 
     if (rollCount == 0) {
-        self.roleDices(true);
+        self.rollDices(true);
     } else if (self.checkZilch(rollCount == 6)) {
         self.Interface.animateDices(self.dices, function() {
 
@@ -147,7 +150,7 @@ Game.prototype.roleDices = function(all) {
     } else {
         self.Interface.animateDices(self.dices);
         self.Interface.disableTakePoints(true);
-        self.Interface.disableRoleDices(true);
+        self.Interface.disableRollDices(true);
         self.Interface.setDices(self.dices);
 
         if (!self.playing) {
@@ -207,9 +210,9 @@ Game.prototype.toggleDice = function(diceIndex) {
     }
 
     if (valid && points > 0 && self.playing) {
-        self.Interface.disableRoleDices(false);
+        self.Interface.disableRollDices(false);
     } else {
-        self.Interface.disableRoleDices(true);
+        self.Interface.disableRollDices(true);
     }
 
     if (valid && self.points + points >= 300 && self.playing) {
@@ -314,15 +317,6 @@ Game.prototype.takePoints = function() {
         self.history.push(history);
     }
 
-
-    if (self.playing && self.cpuStarts && self.player.score > 10000 && self.player.score > self.cpu.score) {
-        self.Interface.showMessage("Player wins!")
-    } else if (!self.playing && !self.cpuStarts && self.cpu.score > 10000 && self.cpu.score > self.player.score) {
-        self.Interface.showMessage("CPU wins!")
-    } else if (self.player.score > 10000 && self.player.score === self.cpu.score) {
-        self.Interface.showMessage("Remi!")
-    }
-
     self.endRound();
 };
 
@@ -331,7 +325,6 @@ Game.prototype.endRound = function() {
 
     // Reset
     self.points = 0;
-    self.playing = !self.playing;
 
     for (var i = 0; i < 6; i++) {
         var dice = self.dices[i];
@@ -339,22 +332,36 @@ Game.prototype.endRound = function() {
     }
 
     self.Interface.disableTakePoints(true);
-    self.Interface.disableRoleDices(true);
+    self.Interface.disableRollDices(true);
     self.Interface.setDices(self.dices);
     self.Interface.setPoints(self.points);
-    self.Interface.setPlaying(self.playing);
     self.Interface.setPlayer(self.player);
     self.Interface.setCpu(self.cpu);
 
     self.Interface.disableTakePoints(true);
-    if (self.playing) {
-        self.Interface.disableRoleDices(false);
-    }
 
-    if (!self.playing) {
-        setTimeout(function() {
-            self.roleDices();
-        }, 1500);
+    // check score
+    var checkScore = self.playing && self.cpuStarts || !self.playing && !self.cpuStarts;
+
+    if (checkScore && self.player.score >= 10000 && self.player.score > self.cpu.score) {
+        self.Interface.showMessage("Player wins!")
+    } else if (checkScore && self.cpu.score >= 10000 && self.cpu.score > self.player.score) {
+        self.Interface.showMessage("CPU wins!")
+    } else if (self.player.score >= 10000 && self.player.score == self.cpu.score) {
+        self.Interface.showMessage("Remi!")
+    } else {
+        self.playing = !self.playing;
+        self.Interface.setPlaying(self.playing);
+        // continue
+        if (self.playing) {
+            self.Interface.disableRollDices(false);
+        }
+
+        if (!self.playing) {
+            setTimeout(function() {
+                self.rollDices();
+            }, self.cpuspeed);
+        }
     }
 
 }
@@ -392,14 +399,14 @@ Game.prototype.cpuPlay = function() {
     }
 
     setTimeout(function() {
-        // strategy: end round if points > 300 and less than 4 dices left
-        if (self.points + self.calculatePoints() > 300 && freeDices < 4 && freeDices > 0) {
+        // strategy: end round if points >= 300 and less than 4 dices left
+        if (self.points + self.calculatePoints() >= 300 && freeDices < 4 && freeDices > 0) {
             self.takePoints();
         } else {
             self.addPoints();
-            self.roleDices();
+            self.rollDices();
         }
-    }, 3000);
+    }, self.cpuSpeed * 2);
 
 
 }

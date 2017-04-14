@@ -13,7 +13,7 @@
     <div class="container">
         <div class="header">
             <h1>openzilch.js</h1>
-            <p class="description">Simple javascript implementation of the <strong>Zilch</strong> game, also known as <strong>Dice 10000</strong>. For rules see <a href="https://en.wikipedia.org/wiki/Dice_10000" target="_blank">Dice 10000 - Wikipedia</a>.</p>
+            <p class="description">Simple javascript implementation of the <strong>Zilch</strong> game, also known as <strong>Dice 10000</strong>.</p>
         </div>
         <div class="game">
             <div class="top">
@@ -44,9 +44,26 @@
                     <label class="label" for="points">Points</label>
                     <div class="points" id="points"></div>
                 </div>
-                <button class="button" id="dices-button">Role Dice/s</button>
+                <button class="button" id="dices-button">Roll Dice/s</button>
             </div>
         </div>
+
+        <hr />
+        <p>
+            <strong class="uppercase">How to play:</strong> The goal is to make over <strong>10000</strong> points. You roll six dices and take points. If you score 300 points and above, you can end the round and score the points. This is the score table:
+            <ul>
+                <li>Single <i>fives</i> <strong>50</strong> each</li>
+                <li>Single <i>ones</i> <strong>100</strong> each</li>
+                <li>Three of a kind <strong>100 x [number]</strong> exception three <i>ones</i> scoring <strong>1000</strong></li>
+                <li>Four/Five/Six of a kind doubles the <i>Three/Four/Five of a kind</i> points</li>
+                <li>Straight <strong>1500</strong></li>
+                <li>Three pairs <strong>1500</strong></li>
+            </ul>
+            If you cannot take any points, you get a <strong>Zilch</strong> and end the round. After three <strong>Zilchs</strong> in a row, you get a <strong>-500</strong> points penalty. If you scored with all six dices, you cann roll again.
+        </p>
+
+        <p>For more information see <a href="https://en.wikipedia.org/wiki/Dice_10000" target="_blank">Dice 10000 - Wikipedia</a>.</p>
+
         <hr />
         <p>Created by Lukas Haubaum. Design template and code inspiration by <a href="https://gabrielecirulli.github.io/2048/" target="_blank">Gabriele Cirulli's 2048</a>.</p>
         <hr />

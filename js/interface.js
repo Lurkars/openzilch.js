@@ -37,7 +37,7 @@ function Interface() {
     self.dicesButton.addEventListener("click", function() {
         if (self.playing) {
             self.fireEvent("addPoints");
-            self.fireEvent("roleDices");
+            self.fireEvent("rollDices");
         }
     });
 
@@ -134,7 +134,7 @@ Interface.prototype.disableTakePoints = function(disabled) {
     this.pointsButton.disabled = disabled;
 };
 
-Interface.prototype.disableRoleDices = function(disabled) {
+Interface.prototype.disableRollDices = function(disabled) {
     this.dicesButton.disabled = disabled;
 };
 
