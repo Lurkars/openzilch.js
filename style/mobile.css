@@ -1,0 +1,63 @@
+@media screen and (max-width: 520px) {
+    body {
+        font-size: 15px;
+    }
+    .container {
+        width: 280px;
+    }
+    .button {
+        display: inline-block;
+        height: 40px;
+        font-size: 15px;
+        color: #f9f6f2;
+        text-decoration: none;
+        line-height: 42px;
+        padding: 0 5px;
+    }
+    .top .button {
+        margin: 0 5px;
+    }
+    .score-container {
+        width: 75px;
+        height: 60px;
+    }
+    .score-container .score {
+        font-size: 20px;
+        line-height: 20px;
+    }
+    .dices-container {
+        width: 280px;
+        height: 185px;
+    }
+    .dice {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+        line-height: 70px;
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+    .message p {
+        font-size: 35px;
+        height: 35px;
+        line-height: 35px;
+        margin-top: 75px;
+    }
+    .action {
+        margin-top: 25px;
+        height: 75px;
+        text-align: center;
+    }
+    .action .button {
+        margin-top: 15px;
+    }
+    .pointsContainer {
+        width: 75px;
+        height: 60px;
+        margin: 0 5px;
+    }
+    .pointsContainer .points {
+        font-size: 20px;
+        line-height: 20px;
+    }
+}

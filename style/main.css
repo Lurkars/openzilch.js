@@ -71,6 +71,8 @@ hr {
 }
 
 .top .button {
+    position: relative;
+    top: -18px;
     margin: 0 88px;
 }
 
@@ -299,10 +301,6 @@ hr {
     text-align: center;
 }
 
-.action .button {
-    margin-top: 15px;
-}
-
 .pointsContainer {
     position: relative;
     display: inline-block;
@@ -326,4 +324,8 @@ hr {
     font-size: 25px;
     line-height: 25px;
     font-weight: bold;
+}
+
+.footer {
+    text-align: center;
 }

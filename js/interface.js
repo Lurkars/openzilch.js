@@ -134,7 +134,7 @@ Interface.prototype.disableTakePoints = function(disabled) {
     this.pointsButton.disabled = disabled;
 };
 
-Interface.prototype.disabledRoleDices = function(disabled) {
+Interface.prototype.disableRoleDices = function(disabled) {
     this.dicesButton.disabled = disabled;
 };
 
@@ -173,7 +173,7 @@ Interface.prototype.setCpu = function(cpu) {
     this.cpuScoreContainer.classList.add('zilch-' + cpu.zilch);
 };
 
-Interface.prototype.showMessage = function(message, fade) {
+Interface.prototype.showMessage = function(message, fade, callback) {
     var self = this;
 
     self.message.innerHTML = '<p>' + message + '</p>';
@@ -182,11 +182,16 @@ Interface.prototype.showMessage = function(message, fade) {
 
     if (fade) {
         setTimeout(function() {
-            self.clearMessage();
+            self.clearMessage(callback);
         }, fade);
+    } else if (callback) {
+        callback();
     }
 };
 
-Interface.prototype.clearMessage = function() {
+Interface.prototype.clearMessage = function(callback) {
     this.message.classList.remove('visible');
+    if (callback) {
+        callback();
+    }
 };
