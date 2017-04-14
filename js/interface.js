@@ -8,9 +8,11 @@ function Interface() {
 
     self.playerScoreContainer = document.querySelector('#player-score-container');
     self.playerScore = document.querySelector('#player-score');
+    self.playerZilch = document.querySelector('#player-zilch');
 
     self.cpuScoreContainer = document.querySelector('#cpu-score-container');
     self.cpuScore = document.querySelector('#cpu-score');
+    self.cpuZilch = document.querySelector('#cpu-zilch');
 
     self.points = document.querySelector('#points');
     self.pointsButton = document.querySelector('#points-button');
@@ -156,21 +158,24 @@ Interface.prototype.setPlaying = function(playing) {
 
 Interface.prototype.setPlayer = function(player) {
     this.playerScore.innerHTML = player.score;
-    this.playerScoreContainer.classList.remove('zilch-0');
-    this.playerScoreContainer.classList.remove('zilch-1');
-    this.playerScoreContainer.classList.remove('zilch-2');
-    this.playerScoreContainer.classList.remove('zilch-3');
-    this.playerScoreContainer.classList.add('zilch-' + player.zilch);
+    var zilchs = "&nbsp;";
+    for (var i = 0; i < player.zilch; i++) {
+        zilchs += "&#x25FE;"
+    }
+    zilchs += "&nbsp;";
+    this.playerZilch.innerHTML = zilchs;
 
 };
 
 Interface.prototype.setCpu = function(cpu) {
     this.cpuScore.innerHTML = cpu.score;
-    this.cpuScoreContainer.classList.remove('zilch-0');
-    this.cpuScoreContainer.classList.remove('zilch-1');
-    this.cpuScoreContainer.classList.remove('zilch-2');
-    this.cpuScoreContainer.classList.remove('zilch-3');
-    this.cpuScoreContainer.classList.add('zilch-' + cpu.zilch);
+    var zilchs = "&nbsp;";
+    for (var i = 0; i < cpu.zilch; i++) {
+        zilchs += "&#x25FE;"
+    }
+    zilchs += "&nbsp;";
+
+    this.cpuZilch.innerHTML = zilchs;
 };
 
 Interface.prototype.showMessage = function(message, fade, callback) {

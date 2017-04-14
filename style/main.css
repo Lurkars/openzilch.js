@@ -102,31 +102,23 @@ hr {
     color: white;
 }
 
-.score-container:after {
-    content: ' ';
+.score-container .score {
+    font-size: 25px;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+.score-container .zilch {
+    color: gray;
     font-weight: normal;
-    display: inline-block;
+    display: block;
     height: 13px;
     position: relative;
     bottom: 5px;
 }
 
-.score-container.zilch-1:after {
-    content: '\25FE';
-}
-
-.score-container.zilch-2:after {
-    content: '\25FE \25FE';
-}
-
-.score-container.zilch-3:after {
-    content: '\25FE \25FE \25FE';
-}
-
-.score-container .score {
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: bold;
+.score-container.active .zilch {
+    color: white;
 }
 
 .dices-container {
