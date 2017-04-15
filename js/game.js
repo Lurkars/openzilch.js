@@ -10,6 +10,7 @@ function Game(Interface) {
     self.Interface.on("toggleDice", self.toggleDice.bind(this));
 
 
+    self.cpuSpeed = 1500;
     self.setup();
 }
 
@@ -42,7 +43,6 @@ Game.prototype.setup = function() {
     self.history = [];
 
     self.cpuStarts = self.random(2);
-    self.cpuSpeed = 1000;
 
     self.playing = !self.cpuStarts;
 
@@ -86,6 +86,7 @@ Game.prototype.rollDices = function(all) {
             if (all) {
                 dice.disabled = false;
             }
+            dice.selected = false;
             rollCount++;
         }
     }
@@ -192,7 +193,7 @@ Game.prototype.toggleDice = function(diceIndex) {
     for (var i = 0; i < 6; i++) {
         var toggleDice = self.dices[i];
 
-        if (toggleDice.selected) {
+        if (toggleDice.selected && !toggleDice.disabled) {
             toggleDice.selected = false;
             var togglePoints = self.calculatePoints();
             if (points > togglePoints) {
@@ -231,7 +232,7 @@ Game.prototype.calculatePoints = function(diceIndex) {
     var result = [0, 0, 0, 0, 0, 0];
     for (var i = 0; i < 6; i++) {
         var dice = self.dices[i];
-        if (dice.selected) {
+        if (dice.selected && !dice.disabled) {
             result[dice.value]++;
         }
     }
@@ -332,7 +333,11 @@ Game.prototype.endRound = function() {
 
     for (var i = 0; i < 6; i++) {
         var dice = self.dices[i];
-        dice.disabled = true;
+        if (dice.disabled) {
+            dice.selected = true;
+        } else {
+            dice.disabled = true;
+        }
     }
 
     self.Interface.disableTakePoints(true);
@@ -410,7 +415,7 @@ Game.prototype.cpuPlay = function() {
             self.addPoints();
             self.rollDices();
         }
-    }, self.cpuSpeed * 2);
+    }, self.cpuSpeed);
 
 
 }
