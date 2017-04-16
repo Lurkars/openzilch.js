@@ -129,7 +129,7 @@ Interface.prototype.animateDices = function(dices, callback) {
         if (callback) {
             callback();
         }
-    }, Math.random() * 500 + 500);
+    }, 500);
 };
 
 Interface.prototype.disableTakePoints = function(disabled) {

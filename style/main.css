@@ -99,7 +99,7 @@ hr {
 }
 
 .score-container.active {
-    color: white;
+    color: #f9f6f2;
 }
 
 .score-container .score {
@@ -118,7 +118,7 @@ hr {
 }
 
 .score-container.active .zilch {
-    color: white;
+    color: #f9f6f2;
 }
 
 .dices-container {
@@ -267,7 +267,7 @@ hr {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(238, 228, 218, 0.73);
+    background: rgba(238, 228, 218, 0.5);
     z-index: 100;
     text-align: center;
     z-index: 5;

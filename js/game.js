@@ -55,7 +55,7 @@ Game.prototype.setup = function() {
     self.Interface.setDices(self.dices);
 
     if (self.cpuStarts) {
-        self.Interface.showMessage("CPU starts!", 1000, function() {
+        self.Interface.showMessage("CPU starts!", self.cpuSpeed, function() {
             setTimeout(function() {
                 self.rollDices();
             }, self.cpuSpeed);
@@ -76,6 +76,12 @@ Game.prototype.random = function(int) {
 Game.prototype.rollDices = function(all) {
     var self = this;
     self.Interface.clearMessage();
+
+    if (self.newRound) {
+        self.points = 0;
+        self.Interface.setPoints(self.points);
+        self.newRound = false;
+    }
 
     var rollCount = 0;
     for (var i = 0; i < 6; i++) {
@@ -100,15 +106,15 @@ Game.prototype.rollDices = function(all) {
 
     if (rollCount == 0) {
         self.rollDices(true);
-    } else if (self.checkZilch(rollCount == 6)) {
+    } else if (self.calculatePoints(true) == 0) {
         self.Interface.animateDices(self.dices, function() {
-
             if (self.playing) {
                 self.player.zilch++;
 
                 var history = {};
                 history['player'] = 'Zilch';
                 self.history.push(history);
+                self.points = 0;
 
                 if (self.player.zilch > 2) {
                     if (self.player.score < 500) {
@@ -121,13 +127,24 @@ Game.prototype.rollDices = function(all) {
                     var history = {};
                     history['player'] = '-500';
                     self.history.push(history);
+                    self.points = -500;
                 }
+
+                self.Interface.setPoints(self.points);
+
+                self.Interface.showMessage("Zilch!", 1500, function() {
+                    self.Interface.showMessage("CPU's turn!", self.cpuSpeed, function() {
+                        self.endRound();
+                    });
+                });
+
             } else {
                 self.cpu.zilch++;
 
                 var history = {};
                 history['cpu'] = 'Zilch';
                 self.history.push(history);
+                self.points = 0;
 
                 if (self.cpu.zilch > 2) {
                     if (self.cpu.score < 500) {
@@ -139,13 +156,18 @@ Game.prototype.rollDices = function(all) {
                     var history = {};
                     history['cpu'] = '-500';
                     self.history.push(history);
+                    self.points = -500;
                 }
 
-            }
+                self.Interface.setPoints(self.points);
 
-            self.Interface.showMessage("Zilch!", 1000, function() {
-                self.endRound();
-            });
+                self.Interface.showMessage("Zilch!", 1500, function() {
+                    self.Interface.showMessage("Player's turn!", 0, function() {
+                        self.endRound();
+                    });
+                });
+
+            }
         });
 
     } else {
@@ -159,22 +181,6 @@ Game.prototype.rollDices = function(all) {
         }
     }
 };
-
-Game.prototype.checkZilch = function(all) {
-    var self = this;
-
-    var rawPoints = [0, 0, 0, 0, 0, 0];
-    for (var i = 0; i < 6; i++) {
-        var dice = self.dices[i];
-        if (all || !dice.disabled) {
-            rawPoints[dice.value]++;
-        }
-    }
-
-    // Zilch?
-    return rawPoints[0] < 1 && rawPoints[1] < 3 && rawPoints[2] < 3 && rawPoints[3] < 3 && rawPoints[4] < 1 && rawPoints[5] < 3;
-}
-
 
 Game.prototype.toggleDice = function(diceIndex) {
     var self = this;
@@ -227,12 +233,12 @@ Game.prototype.toggleDice = function(diceIndex) {
     self.Interface.setPoints(self.points + points);
 };
 
-Game.prototype.calculatePoints = function(diceIndex) {
+Game.prototype.calculatePoints = function(all) {
     var self = this;
     var result = [0, 0, 0, 0, 0, 0];
     for (var i = 0; i < 6; i++) {
         var dice = self.dices[i];
-        if (dice.selected && !dice.disabled) {
+        if ((all || dice.selected) && !dice.disabled) {
             result[dice.value]++;
         }
     }
@@ -322,14 +328,23 @@ Game.prototype.takePoints = function() {
         self.history.push(history);
     }
 
-    self.endRound();
+    self.Interface.showMessage("")
+
+    if (self.playing) {
+        self.Interface.showMessage("CPU's turn!", self.cpuSpeed, function() {
+            self.endRound();
+        });
+    } else {
+        self.Interface.showMessage("Player's turn!", 0, function() {
+            self.endRound();
+        });
+    }
 };
 
 Game.prototype.endRound = function() {
     var self = this;
 
-    // Reset
-    self.points = 0;
+    self.newRound = true;
 
     for (var i = 0; i < 6; i++) {
         var dice = self.dices[i];
@@ -378,44 +393,47 @@ Game.prototype.endRound = function() {
 Game.prototype.cpuPlay = function() {
     var self = this;
 
-    // first select all available dices
-    for (var i = 0; i < 6; i++) {
-        var dice = self.dices[i];
-        if (!dice.disabled) {
-            self.toggleDice(i);
-        }
-    }
+    setTimeout(function() {
 
-    // check if dice gains points
-    for (var i = 0; i < 6; i++) {
-        var dice = self.dices[i];
-        var tmpPoints = self.calculatePoints();
-        if (!dice.disabled) {
-            self.toggleDice(i);
-            if (self.calculatePoints() < tmpPoints) {
+        // first select all available dices
+        for (var i = 0; i < 6; i++) {
+            var dice = self.dices[i];
+            if (!dice.disabled) {
                 self.toggleDice(i);
             }
         }
-    }
 
-    // count free dices
-    var freeDices = 0;
-    for (var i = 0; i < 6; i++) {
-        var dice = self.dices[i];
-        if (!dice.disabled && !dice.selected) {
-            freeDices++;
+        // check if dice gains points
+        for (var i = 0; i < 6; i++) {
+            var dice = self.dices[i];
+            var tmpPoints = self.calculatePoints();
+            if (!dice.disabled) {
+                self.toggleDice(i);
+                if (self.calculatePoints() < tmpPoints) {
+                    self.toggleDice(i);
+                }
+            }
         }
-    }
 
-    setTimeout(function() {
-        // strategy: end round if points >= 300 and less than 4 dices left
-        if (self.points + self.calculatePoints() >= 300 && freeDices < 4 && freeDices > 0) {
-            self.takePoints();
-        } else {
-            self.addPoints();
-            self.rollDices();
+        // count free dices
+        var freeDices = 0;
+        for (var i = 0; i < 6; i++) {
+            var dice = self.dices[i];
+            if (!dice.disabled && !dice.selected) {
+                freeDices++;
+            }
         }
-    }, self.cpuSpeed);
+
+        setTimeout(function() {
+            // strategy: end round if points >= 300 and less than 4 dices left and not loosing
+            if (self.points + self.calculatePoints() >= 300 && freeDices < 4 && freeDices > 0 && self.player.score < 10000) {
+                self.takePoints();
+            } else {
+                self.addPoints();
+                self.rollDices();
+            }
+        }, self.cpuSpeed);
+    }, 500);
 
 
 }
