@@ -112,7 +112,7 @@ Interface.prototype.setDices = function(dices) {
 
 };
 
-Interface.prototype.animateDices = function(dices, callback) {
+Interface.prototype.animateDices = function(dices, timeout, callback) {
     var self = this;
     for (var diceIndex = 0; diceIndex < 6; diceIndex++) {
         var dice = dices[diceIndex];
@@ -129,7 +129,11 @@ Interface.prototype.animateDices = function(dices, callback) {
         if (callback) {
             callback();
         }
-    }, 500);
+    }, timeout ? timeout : 0);
+};
+
+Interface.prototype.disableRestart = function(disabled) {
+    this.restartButton.disabled = disabled;
 };
 
 Interface.prototype.disableTakePoints = function(disabled) {
@@ -178,17 +182,17 @@ Interface.prototype.setCpu = function(cpu) {
     this.cpuZilch.innerHTML = zilchs;
 };
 
-Interface.prototype.showMessage = function(message, fade, callback) {
+Interface.prototype.showMessage = function(message, timeout, callback) {
     var self = this;
 
     self.message.innerHTML = '<p>' + message + '</p>';
 
     self.message.classList.add('visible');
 
-    if (fade) {
+    if (timeout) {
         setTimeout(function() {
             self.clearMessage(callback);
-        }, fade);
+        }, timeout);
     } else if (callback) {
         callback();
     }

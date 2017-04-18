@@ -8,9 +8,8 @@ function Game(Interface) {
     self.Interface.on("addPoints", self.addPoints.bind(this));
     self.Interface.on("rollDices", self.rollDices.bind(this));
     self.Interface.on("toggleDice", self.toggleDice.bind(this));
+    self.Interface.on("toggleCpu", self.toggleCpu.bind(this));
 
-
-    self.cpuSpeed = 1500;
     self.setup();
 }
 
@@ -48,6 +47,10 @@ Game.prototype.setup = function() {
 
     self.points = 0;
 
+    self.animationTime = 500;
+    self.messageTime = 1500;
+    self.cpuSpeed = 1500;
+
     self.Interface.setPlaying(self.playing);
     self.Interface.setPoints(self.points);
     self.Interface.setPlayer(self.player);
@@ -55,7 +58,8 @@ Game.prototype.setup = function() {
     self.Interface.setDices(self.dices);
 
     if (self.cpuStarts) {
-        self.Interface.showMessage("CPU starts!", self.cpuSpeed, function() {
+        self.Interface.disableRestart(true);
+        self.Interface.showMessage("CPU starts!", self.messageTime, function() {
             setTimeout(function() {
                 self.rollDices();
             }, self.cpuSpeed);
@@ -97,17 +101,10 @@ Game.prototype.rollDices = function(all) {
         }
     }
 
-
-    if (self.playing && self.player.zilch == 3) {
-        self.player.zilch = 0;
-    } else if (self.cpu.zilch == 3) {
-        self.cpu.zilch = 0;
-    }
-
     if (rollCount == 0) {
         self.rollDices(true);
     } else if (self.calculatePoints(true) == 0) {
-        self.Interface.animateDices(self.dices, function() {
+        self.Interface.animateDices(self.dices, self.animationTime, function() {
             if (self.playing) {
                 self.player.zilch++;
 
@@ -130,10 +127,18 @@ Game.prototype.rollDices = function(all) {
                     self.points = -500;
                 }
 
+                self.Interface.disableTakePoints(true);
+                self.Interface.disableRollDices(true);
                 self.Interface.setPoints(self.points);
+                self.Interface.setPlayer(self.player);
 
-                self.Interface.showMessage("Zilch!", 1500, function() {
-                    self.Interface.showMessage("CPU's turn!", self.cpuSpeed, function() {
+                self.Interface.showMessage("Zilch!", self.messageTime, function() {
+                    if (self.player.zilch > 2) {
+                        self.player.zilch = 0;
+                        self.Interface.setPlayer(self.player);
+                    }
+
+                    self.Interface.showMessage("CPU's turn!", self.messageTime, function() {
                         self.endRound();
                     });
                 });
@@ -159,9 +164,17 @@ Game.prototype.rollDices = function(all) {
                     self.points = -500;
                 }
 
+                self.Interface.disableTakePoints(true);
+                self.Interface.disableRollDices(true);
                 self.Interface.setPoints(self.points);
+                self.Interface.setCpu(self.cpu);
 
-                self.Interface.showMessage("Zilch!", 1500, function() {
+                self.Interface.showMessage("Zilch!", self.messageTime, function() {
+                    if (self.cpu.zilch > 2) {
+                        self.cpu.zilch = 0;
+                        self.Interface.setCpu(self.cpu);
+                    }
+
                     self.Interface.showMessage("Player's turn!", 0, function() {
                         self.endRound();
                     });
@@ -171,7 +184,7 @@ Game.prototype.rollDices = function(all) {
         });
 
     } else {
-        self.Interface.animateDices(self.dices);
+        self.Interface.animateDices(self.dices, self.animationTime);
         self.Interface.disableTakePoints(true);
         self.Interface.disableRollDices(true);
         self.Interface.setDices(self.dices);
@@ -316,6 +329,7 @@ Game.prototype.takePoints = function() {
     if (self.playing) {
         self.player.score += self.points;
         self.player.zilch = 0;
+        self.Interface.setPlayer(self.player);
         var history = {};
         history['player'] = self.points;
         self.history.push(history);
@@ -323,15 +337,19 @@ Game.prototype.takePoints = function() {
     } else {
         self.cpu.score += self.points;
         self.cpu.zilch = 0;
+        self.Interface.setCpu(self.cpu);
         var history = {};
         history['cpu'] = self.points;
         self.history.push(history);
     }
 
-    self.Interface.showMessage("")
+
+    self.Interface.disableTakePoints(true);
+    self.Interface.disableRollDices(true);
+    self.Interface.setPoints(self.points);
 
     if (self.playing) {
-        self.Interface.showMessage("CPU's turn!", self.cpuSpeed, function() {
+        self.Interface.showMessage("CPU's turn!", self.messageTime, function() {
             self.endRound();
         });
     } else {
@@ -362,8 +380,6 @@ Game.prototype.endRound = function() {
     self.Interface.setPlayer(self.player);
     self.Interface.setCpu(self.cpu);
 
-    self.Interface.disableTakePoints(true);
-
     // check score
     var checkScore = self.playing && self.cpuStarts || !self.playing && !self.cpuStarts;
 
@@ -379,6 +395,7 @@ Game.prototype.endRound = function() {
         // continue
         if (self.playing) {
             self.Interface.disableRollDices(false);
+            self.Interface.disableRestart(false);
         }
 
         if (!self.playing) {
@@ -392,7 +409,7 @@ Game.prototype.endRound = function() {
 
 Game.prototype.cpuPlay = function() {
     var self = this;
-
+    self.Interface.disableRestart(true);
     setTimeout(function() {
 
         // first select all available dices
@@ -432,9 +449,13 @@ Game.prototype.cpuPlay = function() {
                 self.addPoints();
                 self.rollDices();
             }
+
         }, self.cpuSpeed);
     }, 500);
 
+}
+
+Game.prototype.toggleCpu = function() {
 
 }
 
