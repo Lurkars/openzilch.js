@@ -138,9 +138,7 @@ Game.prototype.rollDices = function(all) {
                         self.Interface.setPlayer(self.player);
                     }
 
-                    self.Interface.showMessage("CPU's turn!", self.messageTime, function() {
-                        self.endRound();
-                    });
+                    self.endRound();
                 });
 
             } else {
@@ -175,9 +173,7 @@ Game.prototype.rollDices = function(all) {
                         self.Interface.setCpu(self.cpu);
                     }
 
-                    self.Interface.showMessage("Player's turn!", 0, function() {
-                        self.endRound();
-                    });
+                    self.endRound();
                 });
 
             }
@@ -290,12 +286,12 @@ Game.prototype.calculatePoints = function(all) {
     }
 
     // left Ones
-    if (pairs < 3 && triple1 != 1 && triple2 != 1) {
+    if (!straight && pairs < 3 && triple1 != 1 && triple2 != 1) {
         points += result[0] * 100;
     }
 
     // left Fives
-    if (pairs < 3 && triple1 != 5 && triple2 != 5) {
+    if (!straight && pairs < 3 && triple1 != 5 && triple2 != 5) {
         points += result[4] * 50;
     }
 
@@ -348,15 +344,7 @@ Game.prototype.takePoints = function() {
     self.Interface.disableRollDices(true);
     self.Interface.setPoints(self.points);
 
-    if (self.playing) {
-        self.Interface.showMessage("CPU's turn!", self.messageTime, function() {
-            self.endRound();
-        });
-    } else {
-        self.Interface.showMessage("Player's turn!", 0, function() {
-            self.endRound();
-        });
-    }
+    self.endRound();
 };
 
 Game.prototype.endRound = function() {
@@ -384,13 +372,17 @@ Game.prototype.endRound = function() {
     var checkScore = self.playing && self.cpuStarts || !self.playing && !self.cpuStarts;
 
     if (checkScore && self.player.score >= 10000 && self.player.score > self.cpu.score) {
-        self.Interface.showMessage("Player wins!")
+        self.Interface.disableRestart(false);
+        self.Interface.showMessage("Player wins!");
     } else if (checkScore && self.cpu.score >= 10000 && self.cpu.score > self.player.score) {
-        self.Interface.showMessage("CPU wins!")
+        self.Interface.disableRestart(false);
+        self.Interface.showMessage("CPU wins!");
     } else if (self.player.score >= 10000 && self.player.score == self.cpu.score) {
-        self.Interface.showMessage("Remi!")
+        self.Interface.disableRestart(false);
+        self.Interface.showMessage("Remi!");
     } else {
         self.playing = !self.playing;
+
         self.Interface.setPlaying(self.playing);
         // continue
         if (self.playing) {
@@ -398,11 +390,14 @@ Game.prototype.endRound = function() {
             self.Interface.disableRestart(false);
         }
 
-        if (!self.playing) {
-            setTimeout(function() {
-                self.rollDices();
-            }, self.cpuspeed);
-        }
+        self.Interface.showMessage(self.playing ? "Player's Turn!" : "CPU's turn!", self.messageTime, function() {
+
+            if (!self.playing) {
+                setTimeout(function() {
+                    self.rollDices();
+                }, self.cpuspeed);
+            }
+        });
     }
 
 }

@@ -112,7 +112,8 @@ hr {
     color: gray;
     font-weight: normal;
     display: block;
-    height: 13px;
+    height: 25px;
+    width: 100%;
     position: relative;
     bottom: 5px;
 }
