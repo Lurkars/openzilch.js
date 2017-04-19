@@ -389,16 +389,16 @@ Game.prototype.endRound = function() {
         if (self.playing) {
             self.Interface.disableRollDices(false);
             self.Interface.disableRestart(false);
+            self.Interface.showMessage("Player's turn!");
+        } else {
+            self.Interface.showMessage("CPU's turn!", self.messageTime, function() {
+                if (!self.playing) {
+                    setTimeout(function() {
+                        self.rollDices();
+                    }, self.cpuspeed);
+                }
+            });
         }
-
-        self.Interface.showMessage(self.playing ? "Player's Turn!" : "CPU's turn!", self.messageTime, function() {
-
-            if (!self.playing) {
-                setTimeout(function() {
-                    self.rollDices();
-                }, self.cpuspeed);
-            }
-        });
     }
 
 }
