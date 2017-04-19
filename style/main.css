@@ -110,12 +110,8 @@ hr {
 
 .score-container .zilch {
     color: gray;
-    font-weight: normal;
-    display: block;
-    height: 25px;
-    width: 100%;
-    position: relative;
-    bottom: 5px;
+    font-size: 18px;
+    line-height: 25px;
 }
 
 .score-container.active .zilch {

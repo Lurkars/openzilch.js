@@ -66,6 +66,7 @@ Game.prototype.setup = function() {
         });
     } else {
         self.Interface.showMessage("Player starts!", 0, function() {
+            self.Interface.disableRestart(false);
             self.Interface.disableRollDices(false);
         });
     }
