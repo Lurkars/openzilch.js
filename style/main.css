@@ -1,355 +1,355 @@
 @font-face {
-    font-family: 'Clear Sans';
-    src: url('fonts/ClearSans-Regular-webfont.eot');
-    src: url('fonts/ClearSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/ClearSans-Regular-webfont.woff') format('woff'), url('fonts/ClearSans-Regular-webfont.ttf') format('truetype'), url('fonts/ClearSans-Regular-webfont.svg#clear_sansregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Clear Sans';
+  src: url('fonts/ClearSans-Regular-webfont.eot');
+  src: url('fonts/ClearSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/ClearSans-Regular-webfont.woff') format('woff'), url('fonts/ClearSans-Regular-webfont.ttf') format('truetype'), url('fonts/ClearSans-Regular-webfont.svg#clear_sansregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #faf8ef;
-    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-    font-size: 18px;
-    color: #776e65;
+  background: #faf8ef;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  color: #776e65;
 }
 
 a {
-    color: #776e65;
-    font-weight: bold;
-    text-decoration: underline;
-    cursor: pointer;
+  color: #776e65;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 hr {
-    border: none;
-    border-bottom: 1px solid #d8d4d0;
-    margin-top: 20px;
-    margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #d8d4d0;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .container {
-    width: 500px;
-    margin: 0 auto;
+  width: 500px;
+  margin: 0 auto;
 }
 
 .button {
-    display: inline-block;
-    height: 40px;
-    border: 0;
-    background: #8f7a66;
-    border-radius: 3px;
-    padding: 0 20px;
-    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-    font-size: 18px;
-    color: #f9f6f2;
-    text-decoration: none;
-    line-height: 42px;
-    cursor: pointer;
-    text-align: center;
-    font-weight: bold;
+  display: inline-block;
+  height: 40px;
+  border: 0;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  color: #f9f6f2;
+  text-decoration: none;
+  line-height: 42px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
 }
 
-.button:disabled {
-    cursor: auto;
-    background: #ede0c8;
-    color: #776e65;
+.button.disabled {
+  cursor: auto;
+  background: #ede0c8;
+  color: #776e65;
 }
 
 .top {
-    position: relative;
-    text-align: center;
-    height: 75px;
-    margin-bottom: 25px;
+  position: relative;
+  text-align: center;
+  height: 75px;
+  margin-bottom: 25px;
 }
 
 .top .button {
-    margin-top: 18px;
+  margin-top: 18px;
 }
 
 .score-container {
-    color: gray;
-    display: inline-block;
-    width: 85px;
-    height: 75px;
-    background: #bbada0;
-    border-radius: 3px;
-    text-align: center;
+  color: gray;
+  display: inline-block;
+  width: 85px;
+  height: 75px;
+  background: #bbada0;
+  border-radius: 3px;
+  text-align: center;
 }
 
 #player-score-container {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #cpu-score-container {
-    position: absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .score-container .label {
-    font-size: 13px;
-    line-height: 13px;
-    font-weight: bold;
-    text-transform: uppercase;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .score-container.active {
-    color: #f9f6f2;
+  color: #f9f6f2;
 }
 
 .score-container .score {
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: bold;
+  font-size: 25px;
+  line-height: 25px;
+  font-weight: bold;
 }
 
 .score-container .zilch {
-    display: block;
-    width: 100%;
-    height: 25px;
-    text-align: center;
+  display: block;
+  width: 100%;
+  height: 25px;
+  text-align: center;
 }
 
 .score-container .zilch .point {
-    background-color: gray;
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    margin: 0px 3px;
+  background-color: gray;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0px 3px;
 }
 
 .score-container.active .zilch .point {
-    background-color: #f9f6f2;
+  background-color: #f9f6f2;
 }
 
 .dices-container {
-    position: relative;
-    background: #bbada0;
-    border-radius: 6px;
-    width: 500px;
-    height: 341px;
+  position: relative;
+  background: #bbada0;
+  border-radius: 6px;
+  width: 500px;
+  height: 341px;
 }
 
 .dices {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .dice {
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    border: 0;
-    background: #eee4da;
-    border-radius: 3px;
-    padding: 0 20px;
-    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-    font-size: 55px;
-    line-height: 100px;
-    font-weight: bold;
-    color: #776e65;
-    margin-top: 47px;
-    margin-left: 47px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 0;
+  background: #eee4da;
+  border-radius: 3px;
+  text-align: center;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 55px;
+  line-height: 100px;
+  font-weight: bold;
+  color: #776e65;
+  margin-top: 47px;
+  margin-left: 47px;
 }
 
 .dice:focus {
-    outline: none;
+  outline: none;
 }
 
-.dice:disabled {
-    cursor: auto;
-    background: rgba(238, 228, 218, 0.35);
+.dice.disabled {
+  cursor: auto;
+  background: rgba(238, 228, 218, 0.35);
 }
 
 .dice.selected {
-    background: #ede0c8;
+  background: #ede0c8;
 }
 
 .dice.invalid {
-    background-color: #f2b179;
+  background-color: #f2b179;
 }
 
 @keyframes diceAnimation {
-    0% {
-        content: "1";
-    }
-    20% {
-        content: "2";
-    }
-    40% {
-        content: "3";
-    }
-    60% {
-        content: "4";
-    }
-    80% {
-        content: "5";
-    }
-    100% {
-        content: "6";
-    }
+  0% {
+    content: "1";
+  }
+  20% {
+    content: "2";
+  }
+  40% {
+    content: "3";
+  }
+  60% {
+    content: "4";
+  }
+  80% {
+    content: "5";
+  }
+  100% {
+    content: "6";
+  }
 }
 
 .dice.animate:after {
-    background: #eee4da;
-    content: "1";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    animation: diceAnimation 0.5s linear infinite reverse;
-    -webkit-animation: diceAnimation 0.5s linear infinite reverse;
-    -moz-animation: diceAnimation 0.5s linear infinite reverse;
-    -o-animation: diceAnimation 0.5s linear infinite reverse;
-    -ms-animation: diceAnimation 0.5s linear infinite reverse;
+  background: #eee4da;
+  content: "1";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  animation: diceAnimation 0.5s linear infinite reverse;
+  -webkit-animation: diceAnimation 0.5s linear infinite reverse;
+  -moz-animation: diceAnimation 0.5s linear infinite reverse;
+  -o-animation: diceAnimation 0.5s linear infinite reverse;
+  -ms-animation: diceAnimation 0.5s linear infinite reverse;
 }
 
 .dice.duration0.animate:after {
-    animation-delay: 0.1s;
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    -o-animation-delay: 0.1s;
-    -ms-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
 }
 
 .dice.duration1.animate:after {
-    animation-delay: 0.3s;
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    -o-animation-delay: 0.1s;
-    -ms-animation-delay: 0.1s;
+  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
 }
 
 .dice.duration1.animate:after {
-    animation-delay: 0.6s;
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    -o-animation-delay: 0.1s;
-    -ms-animation-delay: 0.1s;
+  animation-delay: 0.6s;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
 }
 
 .dice.duration3.animate:after {
-    animation-delay: 0.7s;
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    -o-animation-delay: 0.1s;
-    -ms-animation-delay: 0.1s;
+  animation-delay: 0.7s;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
 }
 
 .dice.duration4.animate:after {
-    animation-delay: 1.2s;
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    -o-animation-delay: 0.1s;
-    -ms-animation-delay: 0.1s;
+  animation-delay: 1.2s;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
 }
 
 .dice.duration5.animate:after {
-    animation-delay: 1.5s;
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    -o-animation-delay: 0.1s;
-    -ms-animation-delay: 0.1s;
+  animation-delay: 1.5s;
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -o-animation-delay: 0.1s;
+  -ms-animation-delay: 0.1s;
 }
 
 .message {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(238, 228, 218, 0.5);
-    z-index: 100;
-    text-align: center;
-    z-index: 5;
-    transition: all 0.5s ease-out;
-    -webkit-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    -o-transition: all 0.5s ease-out;
-    -ms-transition: all 0.5s ease-out;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(238, 228, 218, 0.5);
+  z-index: 100;
+  text-align: center;
+  z-index: 5;
+  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
 }
 
 .message.visible {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .message p {
-    font-size: 60px;
-    font-weight: bold;
-    height: 60px;
-    line-height: 60px;
-    margin-top: 150px;
+  font-size: 60px;
+  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 150px;
 }
 
 .action {
-    position: relative;
-    margin-top: 25px;
-    height: 75px;
-    text-align: center;
+  position: relative;
+  margin-top: 25px;
+  height: 75px;
+  text-align: center;
 }
 
 #points-button {
-    position: absolute;
-    top: 18px;
-    left: 0px;
+  position: absolute;
+  top: 18px;
+  left: 0px;
 }
 
 #dices-button {
-    position: absolute;
-    top: 18px;
-    right: 0px;
+  position: absolute;
+  top: 18px;
+  right: 0px;
 }
 
 .pointsContainer {
-    position: relative;
-    display: inline-block;
-    width: 85px;
-    height: 75px;
-    background: #ede0c8;
-    color: #776e65;
-    border-radius: 3px;
-    text-align: center;
+  position: relative;
+  display: inline-block;
+  width: 85px;
+  height: 75px;
+  background: #ede0c8;
+  color: #776e65;
+  border-radius: 3px;
+  text-align: center;
 }
 
 .pointsContainer .label {
-    font-size: 13px;
-    line-height: 13px;
-    font-weight: bold;
-    text-transform: uppercase;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .pointsContainer .points {
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: bold;
+  font-size: 25px;
+  line-height: 25px;
+  font-weight: bold;
 }
 
 .footer {
-    text-align: center;
+  text-align: center;
 }

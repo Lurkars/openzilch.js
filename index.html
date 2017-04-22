@@ -2,80 +2,82 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>openzilch.js</title>
-    <link href="style/main.css" rel="stylesheet" type="text/css" />
-    <link href="style/mobile.css" rel="stylesheet" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta charset="utf-8" />
+  <meta name="author" content="Lukas Haubaum">
+  <meta name="description" content="Simple javascript implementation of the Zilch game, also known as Dice 10000.">
+  <title>openzilch.js</title>
+  <link href="style/main.css" rel="stylesheet" type="text/css" />
+  <link href="style/mobile.css" rel="stylesheet" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>openzilch.js</h1>
-            <p class="description">Simple javascript implementation of the <strong>Zilch</strong> game, also known as <strong>Dice 10000</strong>.</p>
+  <div class="container">
+    <div class="header">
+      <h1>openzilch.js</h1>
+      <p class="description">Simple javascript implementation of the <strong>Zilch</strong> game, also known as <strong>Dice 10000</strong>.</p>
+    </div>
+    <div class="game">
+      <div class="top">
+        <div class="score-container player" id="player-score-container">
+          <label class="label" for="player-score">Player</label>
+          <div class="score" id="player-score"></div>
+          <div class="zilch" id="player-zilch"></div>
         </div>
-        <div class="game">
-            <div class="top">
-                <div class="score-container player" id="player-score-container">
-                    <label class="label" for="player-score">Player</label>
-                    <div class="score" id="player-score"></div>
-                    <div class="zilch" id="player-zilch"></div>
-                </div>
-                <button class="button" id="restart-button">New Game</button>
-                <div class="score-container cpu" id="cpu-score-container">
-                    <label class="label" for="cpu-score">CPU</label>
-                    <div class="score" id="cpu-score"></div>
-                    <div class="zilch" id="cpu-zilch"></div>
-                </div>
-            </div>
-            <div class="dices-container">
-                <div class="message" id="message"></div>
-                <div class="dices" id="dices">
-                    <button class="dice"></button>
-                    <button class="dice"></button>
-                    <button class="dice"></button>
-                    <button class="dice"></button>
-                    <button class="dice"></button>
-                    <button class="dice"></button>
-                </div>
-            </div>
-            <div class="action">
-                <button class="button" id="points-button">Take Points</button>
-                <div class="pointsContainer">
-                    <label class="label" for="points">Points</label>
-                    <div class="points" id="points"></div>
-                </div>
-                <button class="button" id="dices-button">Roll Dice/s</button>
-            </div>
+        <div class="button" id="restart-button">New Game</div>
+        <div class="score-container cpu" id="cpu-score-container">
+          <label class="label" for="cpu-score">CPU</label>
+          <div class="score" id="cpu-score"></div>
+          <div class="zilch" id="cpu-zilch"></div>
         </div>
-
-        <hr />
-        <p>
-            <strong class="uppercase">How to play:</strong> The goal is to make over <strong>10000</strong> points. You roll six dices and take points. If you score 300 points and above, you can end the round and score the points. This is the score table:
-            <ul>
-                <li>Single <i>fives</i> <strong>50</strong> each</li>
-                <li>Single <i>ones</i> <strong>100</strong> each</li>
-                <li>Three of a kind <strong>100 x [number]</strong> exception three <i>ones</i> scoring <strong>1000</strong></li>
-                <li>Four/Five/Six of a kind doubles the <i>Three/Four/Five of a kind</i> points</li>
-                <li>Straight <strong>1500</strong></li>
-                <li>Three pairs <strong>1500</strong></li>
-            </ul>
-            If you cannot take any points, you get a <strong>Zilch</strong> and end the round. After three <strong>Zilchs</strong> in a row, you get a <strong>-500</strong> points penalty. If you scored with all six dices, you cann roll again.
-        </p>
-
-        <p>For more information see <a href="https://en.wikipedia.org/wiki/Dice_10000" target="_blank">Dice 10000 - Wikipedia</a>.</p>
-        <hr />
-        <div class="footer">
-            <p><a href="https://github.com/lurkars/openzilch.js" target="_blank">GitHub</a></p>
+      </div>
+      <div class="dices-container">
+        <div class="message" id="message"></div>
+        <div class="dices" id="dices">
+          <div class="dice"></div>
+          <div class="dice"></div>
+          <div class="dice"></div>
+          <div class="dice"></div>
+          <div class="dice"></div>
+          <div class="dice"></div>
         </div>
-        <hr />
-        <p>Created by <a href="https://www.champonthis.de">Lukas Haubaum</a>. Design and code inspiration by <a href="https://gabrielecirulli.github.io/2048/" target="_blank">Gabriele Cirulli's 2048</a>.</p>
-
+      </div>
+      <div class="action">
+        <div class="button" id="points-button">Take Points</div>
+        <div class="pointsContainer">
+          <label class="label" for="points">Points</label>
+          <div class="points" id="points"></div>
+        </div>
+        <div class="button" id="dices-button">Roll Dice/s</div>
+      </div>
     </div>
 
-    <script type="text/javascript" src="js/interface.js"></script>
-    <script type="text/javascript" src="js/game.js"></script>
+    <hr />
+    <p>
+      <strong class="uppercase">How to play:</strong> The goal is to make over <strong>10000</strong> points. You roll six dices and take points. If you score 300 points and above, you can end the round and take the points. This is the score table:
+      <ul>
+        <li>Single <i>fives</i> <strong>50</strong> each</li>
+        <li>Single <i>ones</i> <strong>100</strong> each</li>
+        <li>Three of a kind <strong>100 x [number]</strong> exception three <i>ones</i> scoring <strong>1000</strong></li>
+        <li>Four/Five/Six of a kind doubles the <i>Three/Four/Five of a kind</i> points</li>
+        <li>Straight <strong>1500</strong></li>
+        <li>Three pairs <strong>1500</strong></li>
+      </ul>
+      If you cannot score any points, you get a <strong>Zilch</strong> and end the round. After three <strong>Zilchs</strong> in a row, you get a <strong>-500</strong> points penalty. If you scored with all six dices, you cann roll again.
+    </p>
+
+    <p>For more information see <a href="https://en.wikipedia.org/wiki/Dice_10000" target="_blank">Dice 10000 - Wikipedia</a>.</p>
+    <hr />
+    <div class="footer">
+      <p><a href="https://github.com/lurkars/openzilch.js" target="_blank">GitHub</a></p>
+    </div>
+    <hr />
+    <p>Created by <a href="https://www.champonthis.de">Lukas Haubaum</a>. Design and code inspiration by <a href="https://gabrielecirulli.github.io/2048/" target="_blank">Gabriele Cirulli's 2048</a>.</p>
+
+  </div>
+
+  <script type="text/javascript" src="js/interface.js"></script>
+  <script type="text/javascript" src="js/game.js"></script>
 </body>
 
 </html>
