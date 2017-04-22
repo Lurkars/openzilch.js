@@ -15,7 +15,7 @@
         padding: 0 3px;
     }
     .top .button {
-        margin: 0 5px;
+        margin-top: 10px;
     }
     .score-container {
         width: 75px;
@@ -48,13 +48,15 @@
         height: 75px;
         text-align: center;
     }
-    .action .button {
-        margin-top: 15px;
+    #points-button {
+        top: 10px;
+    }
+    #dices-button {
+        top: 10px;
     }
     .pointsContainer {
         width: 75px;
         height: 60px;
-        margin: 0 5px;
     }
     .pointsContainer .points {
         font-size: 20px;

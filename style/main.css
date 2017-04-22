@@ -69,26 +69,36 @@ hr {
 }
 
 .top {
+    position: relative;
     text-align: center;
     height: 75px;
     margin-bottom: 25px;
 }
 
 .top .button {
-    position: relative;
-    top: -18px;
-    margin: 0 88px;
+    margin-top: 18px;
 }
 
 .score-container {
     color: gray;
-    position: relative;
     display: inline-block;
     width: 85px;
     height: 75px;
     background: #bbada0;
     border-radius: 3px;
     text-align: center;
+}
+
+#player-score-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#cpu-score-container {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .score-container .label {
@@ -109,13 +119,22 @@ hr {
 }
 
 .score-container .zilch {
-    color: gray;
-    font-size: 18px;
-    line-height: 25px;
+    display: block;
+    width: 100%;
+    height: 25px;
+    text-align: center;
 }
 
-.score-container.active .zilch {
-    color: #f9f6f2;
+.score-container .zilch .point {
+    background-color: gray;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0px 3px;
+}
+
+.score-container.active .zilch .point {
+    background-color: #f9f6f2;
 }
 
 .dices-container {
@@ -289,9 +308,22 @@ hr {
 }
 
 .action {
+    position: relative;
     margin-top: 25px;
     height: 75px;
     text-align: center;
+}
+
+#points-button {
+    position: absolute;
+    top: 18px;
+    left: 0px;
+}
+
+#dices-button {
+    position: absolute;
+    top: 18px;
+    right: 0px;
 }
 
 .pointsContainer {
@@ -303,7 +335,6 @@ hr {
     color: #776e65;
     border-radius: 3px;
     text-align: center;
-    margin: 0 48px;
 }
 
 .pointsContainer .label {

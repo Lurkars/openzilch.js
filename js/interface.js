@@ -162,22 +162,20 @@ Interface.prototype.setPlaying = function(playing) {
 
 Interface.prototype.setPlayer = function(player) {
     this.playerScore.innerHTML = player.score;
-    var zilchs = "&nbsp;";
+    var zilchs = '';
     for (var i = 0; i < player.zilch; i++) {
-        zilchs += "&#x25FE;"
+        zilchs += '<div class="point"></div>';
     }
-    zilchs += "&nbsp;";
     this.playerZilch.innerHTML = zilchs;
 
 };
 
 Interface.prototype.setCpu = function(cpu) {
     this.cpuScore.innerHTML = cpu.score;
-    var zilchs = "&nbsp;";
+    var zilchs = '';
     for (var i = 0; i < cpu.zilch; i++) {
-        zilchs += "&#x25FE;"
+        zilchs += '<div class="point"></div>';
     }
-    zilchs += "&nbsp;";
 
     this.cpuZilch.innerHTML = zilchs;
 };
