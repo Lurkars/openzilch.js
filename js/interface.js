@@ -1,9 +1,14 @@
+/**
+ * UI
+ */
 function Interface() {
 
   var self = this;
 
+  // Event Objects for callbacks
   self.events = {};
 
+  // get DOM elements
   self.restartButton = document.querySelector('#restart-button');
 
   self.playerScoreContainer = document.querySelector('#player-score-container');
@@ -22,9 +27,7 @@ function Interface() {
 
   self.message = document.querySelector('#message');
 
-  self.dicesButton.classList.add("disabled");
-  self.pointsButton.classList.add("disabled");
-
+  // add click events
   self.restartButton.addEventListener("click", function() {
     if (!this.classList.contains('disabled')) {
       self.fireEvent("restart");
@@ -45,6 +48,7 @@ function Interface() {
     }
   });
 
+  // add click events for dices
   for (var diceIndex = 0; diceIndex < 6; diceIndex++) {
     var diceContainer = self.dices[diceIndex];
     diceContainer.diceIndex = diceIndex;
@@ -58,6 +62,9 @@ function Interface() {
   this.setup();
 };
 
+/**
+ * setup init state
+ */
 Interface.prototype.setup = function() {
   this.dicesButton.classList.add("disabled");
   this.pointsButton.classList.add("disabled");
@@ -65,6 +72,9 @@ Interface.prototype.setup = function() {
 
 };
 
+/**
+ * register callbacks for events
+ */
 Interface.prototype.on = function(event, callback) {
   if (!this.events[event]) {
     this.events[event] = [];
@@ -72,6 +82,9 @@ Interface.prototype.on = function(event, callback) {
   this.events[event].push(callback);
 };
 
+/**
+ * fire events and execute callbacks
+ */
 Interface.prototype.fireEvent = function(event, data) {
   var callbacks = this.events[event];
   if (callbacks) {
@@ -81,6 +94,9 @@ Interface.prototype.fireEvent = function(event, data) {
   }
 };
 
+/**
+ * Set dices
+ */
 Interface.prototype.setDices = function(dices) {
   var self = this;
 
@@ -108,12 +124,11 @@ Interface.prototype.setDices = function(dices) {
       diceContainer.classList.remove('invalid');
     }
   }
-
-
-
-
 };
 
+/**
+ * fire dices animation
+ */
 Interface.prototype.animateDices = function(dices, timeout, callback) {
   var self = this;
   for (var diceIndex = 0; diceIndex < 6; diceIndex++) {
@@ -134,6 +149,9 @@ Interface.prototype.animateDices = function(dices, timeout, callback) {
   }, timeout ? timeout : 0);
 };
 
+/**
+ * set disabled state of 'restart' button
+ */
 Interface.prototype.disableRestart = function(disabled) {
   if (disabled) {
     this.restartButton.classList.add("disabled")
@@ -142,6 +160,9 @@ Interface.prototype.disableRestart = function(disabled) {
   }
 };
 
+/**
+ * set disabled state of 'take points' button
+ */
 Interface.prototype.disableTakePoints = function(disabled) {
   if (disabled) {
     this.pointsButton.classList.add("disabled")
@@ -150,6 +171,9 @@ Interface.prototype.disableTakePoints = function(disabled) {
   }
 };
 
+/**
+ * set disabled state of 'roll dices' button
+ */
 Interface.prototype.disableRollDices = function(disabled) {
   if (disabled) {
     this.dicesButton.classList.add("disabled")
@@ -158,10 +182,16 @@ Interface.prototype.disableRollDices = function(disabled) {
   }
 };
 
+/**
+ * set points
+ */
 Interface.prototype.setPoints = function(points) {
   this.points.innerHTML = points;
 };
 
+/**
+ * set playing status (Player or CPU)
+ */
 Interface.prototype.setPlaying = function(playing) {
   if (playing) {
     this.playing = true;
@@ -174,6 +204,9 @@ Interface.prototype.setPlaying = function(playing) {
   }
 };
 
+/**
+ * set player data
+ */
 Interface.prototype.setPlayer = function(player) {
   this.playerScore.innerHTML = player.score;
   var zilchs = '';
@@ -184,6 +217,9 @@ Interface.prototype.setPlayer = function(player) {
 
 };
 
+/**
+ * set cpu data
+ */
 Interface.prototype.setCpu = function(cpu) {
   this.cpuScore.innerHTML = cpu.score;
   var zilchs = '';
@@ -194,6 +230,9 @@ Interface.prototype.setCpu = function(cpu) {
   this.cpuZilch.innerHTML = zilchs;
 };
 
+/**
+ * show message with timeout and callback
+ */
 Interface.prototype.showMessage = function(message, timeout, callback) {
   var self = this;
 
@@ -210,6 +249,9 @@ Interface.prototype.showMessage = function(message, timeout, callback) {
   }
 };
 
+/**
+ * hide current message
+ */
 Interface.prototype.clearMessage = function(callback) {
   this.message.classList.remove('visible');
   if (callback) {

@@ -236,23 +236,23 @@ hr {
 }
 
 .dice.duration1.animate:after {
-  animation-delay: 0.3s;
-  -webkit-animation-delay: 0.1s;
-  -moz-animation-delay: 0.1s;
-  -o-animation-delay: 0.1s;
-  -ms-animation-delay: 0.1s;
+  animation-delay: 0.2s;
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -o-animation-delay: 0.2s;
+  -ms-animation-delay: 0.2s;
 }
 
 .dice.duration1.animate:after {
-  animation-delay: 0.6s;
-  -webkit-animation-delay: 0.1s;
-  -moz-animation-delay: 0.1s;
-  -o-animation-delay: 0.1s;
-  -ms-animation-delay: 0.1s;
+  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
+  -o-animation-delay: 0.3s;
+  -ms-animation-delay: 0.3s;
 }
 
 .dice.duration3.animate:after {
-  animation-delay: 0.7s;
+  animation-delay: 0.1s;
   -webkit-animation-delay: 0.1s;
   -moz-animation-delay: 0.1s;
   -o-animation-delay: 0.1s;
@@ -260,19 +260,19 @@ hr {
 }
 
 .dice.duration4.animate:after {
-  animation-delay: 1.2s;
-  -webkit-animation-delay: 0.1s;
-  -moz-animation-delay: 0.1s;
-  -o-animation-delay: 0.1s;
-  -ms-animation-delay: 0.1s;
+  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
+  -o-animation-delay: 0.3s;
+  -ms-animation-delay: 0.3s;
 }
 
 .dice.duration5.animate:after {
-  animation-delay: 1.5s;
-  -webkit-animation-delay: 0.1s;
-  -moz-animation-delay: 0.1s;
-  -o-animation-delay: 0.1s;
-  -ms-animation-delay: 0.1s;
+  animation-delay: 0.2s;
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -o-animation-delay: 0.2s;
+  -ms-animation-delay: 0.2s;
 }
 
 .message {
